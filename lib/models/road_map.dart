@@ -19,14 +19,14 @@ class RoadMap {
   int id;
   int pointsCounter;
   int taskCounter;
+  int hex;
   String title;
-  String hex;
   String thumb;
 
   factory RoadMap.fromJson(Map<String, dynamic> json) => RoadMap(
         title: json["title"] as String,
         id: json["id"] as int,
-        hex: json["hex"] as String,
+        hex: int.parse(json["hex"]),
         // pointsCounter: json["points_counter"],
         // taskCounter: json["task_counter"],
         // thumb: json["thumb"],

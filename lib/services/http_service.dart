@@ -9,30 +9,24 @@ class HttpService {
   Future<List<RoadMap>> getAllRoadMaps() async {
     try {
       final response = await http.get(Uri.https(uri, 'development/roadmap'));
-      print(response);
-      print('print json decode');
+
       print(jsonDecode(response.body));
       if (response.statusCode == 200) {
         var test = json.decode(response.body);
         var map = Map<String, dynamic>.from(test);
-        print(map['body']);
 
-        print(map['body'].map((dynamic item) => item));
-        // List<RoadMap> roadmaps =
-        var list = map['body'].map((dynamic item) => RoadMap.fromJson(item));
-        print("lista: $list");
-        print(list.cast<List<RoadMap>>());
+        List<RoadMap> roadmaps =
+            (map['body'] as List).map((i) => RoadMap.fromJson(i)).toList();
+        print(roadmaps);
 
-        return list.cast<List<RoadMap>>();
+        return roadmaps;
       } else {
         print('Cant get roadmaps error');
         throw 'Cant get roadmaps';
       }
     } catch (e) {
       print("finished with exceptions $e");
-      return [RoadMap(id: 1, title: 'Vazio', hex: '#fff')];
-    } finally {
-      print("finished with exceptions");
+      return [RoadMap(id: 1, title: 'Vazio', hex: 0xFFFFF)];
     }
   }
 }

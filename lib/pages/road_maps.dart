@@ -1,8 +1,7 @@
 import 'package:drm/models/road_map.dart';
-import 'package:drm/http_service.dart';
+import 'package:drm/services/http_service.dart';
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
-import 'dart:convert';
+import 'dart:ui';
 
 class RoadMaps extends StatelessWidget {
   @override
@@ -27,35 +26,34 @@ class _ListRoadMap extends State<Maps> {
         appBar: AppBar(
           title: Text('Road Maps'),
         ),
-        body: FutureBuilder(
-          future: service.getAllRoadMaps(),
-          builder:
-              (BuildContext context, AsyncSnapshot<List<RoadMap>> snapshot) {
-            if (snapshot.hasData) {
-              List<RoadMap> roadmaps = snapshot.data;
+        body: Container(
+          margin: const EdgeInsets.symmetric(vertical: 40.0),
+          child: FutureBuilder(
+            future: service.getAllRoadMaps(),
+            builder:
+                (BuildContext context, AsyncSnapshot<List<RoadMap>> snapshot) {
+              if (snapshot.hasData) {
+                List<RoadMap> roadmaps = snapshot.data;
 
-              return ListView(
-                children: roadmaps
-                    .map((RoadMap roadmap) => ListTile(
-                          title: Text(roadmap.title),
-                        ))
-                    .toList(),
-              );
-
-              // return ListView.builder(
-              //     padding: EdgeInsets.all(16.0),
-              //     itemBuilder: (BuildContext context, int interator) {
-              //       return Container(
-              //         height: 80,
-              //         color: Color(0xFFFFFFFF),
-              //         child: Center(
-              //           child: Text(roadmaps[interator].title),
-              //         ),
-              //       );
-              //     });
-            }
-            return Center(child: CircularProgressIndicator());
-          },
+                return Center(
+                  child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 40.0),
+                      child: ListView.builder(
+                        itemCount: roadmaps.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            height: 200,
+                            margin: const EdgeInsets.symmetric(vertical: 10.0),
+                            color: Color(roadmaps[index].hex),
+                            child: Center(child: Text(roadmaps[index].title)),
+                          );
+                        },
+                      )),
+                );
+              }
+              return Center(child: CircularProgressIndicator());
+            },
+          ),
         ));
   }
 }
