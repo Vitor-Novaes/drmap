@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
 
-RoadMap roadMapFromJson(String str) => RoadMap.fromJson(json.decode(str));
+Roadmap roadMapFromJson(String str) => Roadmap.fromJson(json.decode(str));
 
-String roadMapToJson(RoadMap data) => json.encode(data.toJson());
+String roadMapToJson(Roadmap data) => json.encode(data.toJson());
 
-class RoadMap {
-  RoadMap({
+class Roadmap {
+  Roadmap({
     @required this.id,
     @required this.title,
     @required this.hex,
@@ -23,7 +23,7 @@ class RoadMap {
   String title;
   String thumb;
 
-  factory RoadMap.fromJson(Map<String, dynamic> json) => RoadMap(
+  factory Roadmap.fromJson(Map<String, dynamic> json) => Roadmap(
         title: json["title"] as String,
         id: json["id"] as int,
         hex: int.parse(json["hex"]),

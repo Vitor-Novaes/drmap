@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:drm/models/road_map.dart';
+import 'package:drm/models/roadmap.dart';
 import 'package:http/http.dart' as http;
 
 class HttpService {
   final String uri = "8bp38ux9fi.execute-api.us-east-1.amazonaws.com";
 
-  Future<List<RoadMap>> getAllRoadMaps() async {
+  Future<List<Roadmap>> getAllRoadMaps() async {
     try {
       final response = await http.get(Uri.https(uri, 'development/roadmap'));
 
@@ -15,8 +15,8 @@ class HttpService {
         var test = json.decode(response.body);
         var map = Map<String, dynamic>.from(test);
 
-        List<RoadMap> roadmaps =
-            (map['body'] as List).map((i) => RoadMap.fromJson(i)).toList();
+        List<Roadmap> roadmaps =
+            (map['body'] as List).map((i) => Roadmap.fromJson(i)).toList();
         print(roadmaps);
 
         return roadmaps;
@@ -26,7 +26,7 @@ class HttpService {
       }
     } catch (e) {
       print("finished with exceptions $e");
-      return [RoadMap(id: 1, title: 'Vazio', hex: 0xFFFFF)];
+      return [Roadmap(id: 1, title: 'Vazio', hex: 0xFFFFF)];
     }
   }
 }
