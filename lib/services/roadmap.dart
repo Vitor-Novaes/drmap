@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:drm/models/roadmap.dart';
 import 'package:http/http.dart' as http;
 
-class HttpService {
+class RoadmapService {
   final String uri = "8bp38ux9fi.execute-api.us-east-1.amazonaws.com";
 
   Future<List<Roadmap>> getAllRoadMaps() async {

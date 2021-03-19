@@ -2,31 +2,18 @@ import 'package:drm/models/roadmap.dart';
 import 'package:drm/services/roadmap.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
-// import 'package:drm/components/roadmap_item.dart';
-
-import 'package:drm/pages/roadmap/form.dart';
-import 'package:drm/pages/point/list.dart';
 
 class ListRoads extends StatelessWidget {
-  final HttpService service = HttpService();
+  final RoadmapService service = RoadmapService();
 
   void _newRoadMap(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return FormRoadmap();
-        },
-      ),
-    );
+    Navigator.of(context).pushNamed('/roadmaps/new');
   }
 
   void _goToPoints(BuildContext context, Roadmap roadmap) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) {
-          return ListPoints(roadmap);
-        },
-      ),
+    Navigator.of(context).pushNamed(
+      '/points',
+      arguments: roadmap,
     );
   }
 
