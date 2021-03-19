@@ -8,7 +8,7 @@ String roadMapToJson(Roadmap data) => json.encode(data.toJson());
 
 class Roadmap {
   Roadmap({
-    @required this.id,
+    this.id,
     @required this.title,
     @required this.hex,
     this.pointsCounter,
@@ -34,9 +34,9 @@ class Roadmap {
 
   Map<String, dynamic> toJson() => {
         "title": title,
-        "points_counter": pointsCounter,
-        "task_counter": taskCounter,
         "hex": hex,
-        "thumb": thumb,
+        // "points_counter": pointsCounter,
+        // "task_counter": taskCounter,
+        // "thumb": thumb,
       };
 }
