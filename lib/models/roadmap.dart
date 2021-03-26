@@ -11,32 +11,33 @@ class Roadmap {
     this.id,
     @required this.title,
     @required this.hex,
+    @required this.thumb,
     this.pointsCounter,
     this.taskCounter,
-    this.thumb,
   });
 
   int id;
-  int pointsCounter;
-  int taskCounter;
   int hex;
   String title;
   String thumb;
+
+  int pointsCounter;
+  int taskCounter;
 
   factory Roadmap.fromJson(Map<String, dynamic> json) => Roadmap(
         title: json["title"] as String,
         id: json["id"] as int,
         hex: int.parse(json["hex"]),
+        thumb: json["thumb"] as String,
         // pointsCounter: json["points_counter"],
         // taskCounter: json["task_counter"],
-        // thumb: json["thumb"],
       );
 
   Map<String, dynamic> toJson() => {
         "title": title,
         "hex": hex,
+        "thumb": thumb,
         // "points_counter": pointsCounter,
         // "task_counter": taskCounter,
-        // "thumb": thumb,
       };
 }

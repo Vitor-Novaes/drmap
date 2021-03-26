@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:drm/pages/roadmap/list.dart';
 import 'package:drm/pages/roadmap/form.dart';
@@ -14,7 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(canvasColor: Color(0xFFFFFEE5)),
+      theme: ThemeData(
+        // canvasColor: Color(0xFFFFFEE5),
+        canvasColor: Colors.grey,
+        accentColor: Colors.white,
+        primaryColor: Colors.black,
+        textTheme:
+            GoogleFonts.shareTechMonoTextTheme(Theme.of(context).textTheme),
+      ),
       routes: {
         '/': (context) => ListRoads(),
         '/roadmaps/new': (context) => FormRoadmap(),
