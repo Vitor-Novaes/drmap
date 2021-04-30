@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:drm/pages/roadmap/list.dart';
 import 'package:drm/pages/roadmap/form.dart';
+import 'package:drm/pages/roadmap/form_new.dart';
 import 'package:drm/pages/point/list.dart';
 
 void main() => runApp(MyApp());
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
         '/': (context) => ListRoads(),
         '/roadmaps/new': (context) => FormRoadmap(),
         '/points': (context) => ListPoints(),
+        // '/roadmaps/form': (context) => FormRoadmapSelection()
+        '/roadmaps/form': (context) => FormRoadmap()
       },
     );
   }

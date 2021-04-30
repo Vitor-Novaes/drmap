@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:ui';
 
 import 'package:drm/models/roadmap.dart';
 import 'package:http/http.dart' as http;
@@ -32,10 +31,31 @@ class RoadmapService {
     }
   }
 
+  Future<List<Roadmap>> getRoadMapOptions() async {
+    try {
+      final response = await http.get(Uri.https(uri, 'development/roadmap'));
+
+      if (response.statusCode == 200) {
+        var test = json.decode(response.body);
+        var map = Map<String, dynamic>.from(test);
+
+        List<Roadmap> roadmaps =
+            (map['body'] as List).map((i) => Roadmap.fromOptions(i)).toList();
+        print(roadmaps.map((road) => road.label));
+
+        return roadmaps;
+      } else {
+        print('Cant get roadmaps error');
+        throw 'Cant get roadmaps';
+      }
+    } catch (e) {}
+  }
+
   Future<void> createRoadmap(payload) async {
     final roadmap = Roadmap(
       title: payload['name'],
       hex: payload['hex'],
+      thumb: 'url',
     );
     final String req = roadMapToJson(roadmap);
     print(req);
@@ -48,6 +68,8 @@ class RoadmapService {
         body: req,
       );
       print(response);
+      var test = json.decode(response.body);
+      print(test);
     } catch (e) {
       print('Error on create $e');
       throw e;

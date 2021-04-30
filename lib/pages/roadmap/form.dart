@@ -1,7 +1,7 @@
-import 'package:drm/models/roadmap.dart';
 import 'package:drm/services/roadmap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:flutter_color/flutter_color.dart';
 import 'dart:ui';
 
 class FormRoadmap extends StatefulWidget {
@@ -15,11 +15,17 @@ class _FormRoadmap extends State<FormRoadmap> {
 
   final RoadmapService service = RoadmapService();
   Color pickerColor = Color(0xff443a49);
-  Color currentColor = Color(0xff443a49);
+  String currentColor = '';
 
-  void _submit(context) {
+  void _submit(context) async {
+    bool isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
+
     _form.currentState.save();
-    service.createRoadmap(_formData);
+    await service.createRoadmap(_formData);
+    Navigator.of(context).pop();
   }
 
   void changeColor(Color color) {
@@ -28,10 +34,12 @@ class _FormRoadmap extends State<FormRoadmap> {
 
   showPicker(BuildContext context) {
     // set up the button
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text("Pick it"),
       onPressed: () {
-        setState(() => currentColor = pickerColor);
+        setState(() => {
+              currentColor = pickerColor.toString().split('(')[1].split(')')[0],
+            });
         Navigator.of(context).pop();
       },
     );
@@ -99,15 +107,6 @@ class _FormRoadmap extends State<FormRoadmap> {
                   },
                   onSaved: (value) => _formData['name'] = value,
                 ),
-                // TextFormField(
-                //   decoration: InputDecoration(labelText: 'Hexdecimal color'),
-                //   validator: (String value) {
-                //     if (value == null || value.isEmpty) {
-                //       return 'Color is required';
-                //     }
-                //     return null;
-                //   },
-                // ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Description'),
                   onSaved: (value) => _formData['decoration'] = value,

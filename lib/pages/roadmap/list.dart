@@ -9,7 +9,7 @@ class ListRoads extends StatelessWidget {
   final RoadmapService service = RoadmapService();
 
   void _newRoadMap(BuildContext context) {
-    Navigator.of(context).pushNamed('/roadmaps/new');
+    Navigator.of(context).pushNamed('/roadmaps/form');
   }
 
   void _goToPoints(BuildContext context, Roadmap roadmap) {
